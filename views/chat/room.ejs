@@ -1,0 +1,26 @@
+<% if (errors) {%>
+  <% errors.forEach(function (error) { %>
+    <%= __(error) %>
+  <% }) %>
+<% } %>
+
+<% chats %>
+
+<% for (var i = 0; i < chats.length; i++) { %>
+<span>
+	<h6> <%= chats[i].senderUser.username %> : </h6> 
+	<p> <%= chats[i].message %> </p>  
+</span>  
+<% } %>
+<form role="form" action="/chat/create" method="post">
+  <input type="text" name="message" placeholder="Message">
+  <input type="hidden" name="senderUser" value="<%= user.id %>" >
+  <button type="submit">Send</button>
+</form>
+
+<script type"text/javascript" src="/js/dependencies/sails.io.js"></script>
+<script type"text/javascript">
+io.socket.get('/hello', function responseFromServer (body, response) {
+  console.log("The server responded with status " + response.statusCode + " and said: ", body);
+});
+</script>
